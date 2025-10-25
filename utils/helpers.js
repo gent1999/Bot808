@@ -72,14 +72,12 @@ export function cleanText(text) {
 }
 
 /**
- * Extract tags from content
+ * Extract tags from content - ARTIST NAMES ONLY
  */
 export function extractTags(text, title) {
   const tags = new Set();
-  const content = (title + ' ' + text).toLowerCase();
   const originalTitle = title; // Keep original casing for artist names
 
-  // Extract artist names from title (common patterns)
   // Pattern 1: "Artist Name - Song Title" or "Artist Name: Song Title"
   const artistPattern1 = /^([A-Z][A-Za-z0-9\s&.'-]+?)(?:\s*[-–—:]\s*)/;
   const match1 = originalTitle.match(artistPattern1);
@@ -105,27 +103,13 @@ export function extractTags(text, title) {
     });
   }
 
-  // Pattern 4: Common artist name indicators
+  // Pattern 4: Common artist name indicators (featuring, ft., etc.)
   const artistIndicators = /(?:featuring|feat\.|ft\.|with|by)\s+([A-Z][A-Za-z0-9\s&.'-]{2,25})/gi;
   let indicatorMatch;
   while ((indicatorMatch = artistIndicators.exec(originalTitle)) !== null) {
     tags.add(indicatorMatch[1].trim());
   }
 
-  // Common hip-hop related keywords
-  const keywords = [
-    'rap', 'hip-hop', 'hiphop', 'trap', 'drill', 'r&b',
-    'album', 'single', 'ep', 'mixtape', 'music video',
-    'collaboration', 'collab', 'feature', 'interview',
-    'concert', 'tour', 'festival', 'performance'
-  ];
-
-  keywords.forEach(keyword => {
-    if (content.includes(keyword)) {
-      tags.add(keyword);
-    }
-  });
-
-  // Convert Set to Array and limit to 8 tags (more room for artist names)
-  return Array.from(tags).slice(0, 8);
+  // Convert Set to Array and limit to 5 artist tags
+  return Array.from(tags).slice(0, 5);
 }
