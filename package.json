@@ -1,0 +1,21 @@
+{
+  "name": "bot808",
+  "version": "1.0.0",
+  "description": "Automated blog posting bot for CRY808",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": ["bot", "automation", "blog", "scraper"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-cron": "^3.0.3",
+    "axios": "^1.6.5",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1",
+    "cloudinary": "^1.41.0"
+  }
+}
