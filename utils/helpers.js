@@ -61,14 +61,18 @@ export function log(message) {
 }
 
 /**
- * Clean and format text content
+ * Clean and format text content while preserving paragraph breaks
  */
 export function cleanText(text) {
   if (!text) return '';
   return text
     .trim()
-    .replace(/\s+/g, ' ')
-    .replace(/\n+/g, '\n\n');
+    // First, normalize paragraph breaks (2+ newlines become exactly 2)
+    .replace(/\n\s*\n+/g, '\n\n')
+    // Clean up spaces within lines (but preserve newlines)
+    .replace(/[^\S\n]+/g, ' ')
+    // Remove spaces at start/end of lines
+    .replace(/^ +| +$/gm, '');
 }
 
 /**
